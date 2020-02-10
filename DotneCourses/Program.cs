@@ -13,7 +13,7 @@ namespace DotneCourses
         {
             // for (int i = 0; i < 11; ++i)
             //{
-            var path = Path.Combine(System.Environment.CurrentDirectory, "TestData", $"Map.txt");
+            var path = Path.Combine(System.Environment.CurrentDirectory, "TestData", $"Map2.txt");
             var fileHelper = new FileHelper(path);
 
             var mapHelper = new MapParser(fileHelper.LinesFromFile);
@@ -22,7 +22,7 @@ namespace DotneCourses
             //}
             Console.Clear();
             Console.Write(" ");
-            for (int i = 0; i < Task1Consts.YLimit/10; i++)
+            for (int i = 0; i < Task1Consts.XLimit/10; i++)
             {
                 for (int j = 0; j < 10; j++)
                 {

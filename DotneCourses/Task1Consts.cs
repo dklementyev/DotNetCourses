@@ -40,7 +40,7 @@ namespace DotneCourses
 
         public const int XLimit = 40;
 
-        public const int YLimit = 40;
+        public const int YLimit = 19;
 
         #endregion
     }

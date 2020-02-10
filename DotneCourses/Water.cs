@@ -23,8 +23,8 @@ namespace DotneCourses
             int i = 0;
             foreach (var coord in coordsSequence)
             {
-                points[i].X = Convert.ToInt16(coord.Split(',')[1]);
-                points[i].Y = Convert.ToInt16(coord.Split(',')[0]);
+                points[i].X = Convert.ToInt16(coord.Split(',')[0]);
+                points[i].Y = Convert.ToInt16(coord.Split(',')[1]);
                 ++i;
             }
         }
@@ -40,14 +40,18 @@ namespace DotneCourses
                 {
                     for (int j = 0; j < curPoint.Y; j++)
                     {
+                        if (map[j, curPoint.X] == Task1Consts.BridgeSymbol)
+                            continue;
                         map[j, curPoint.X] = Task1Consts.WaterSymbol;
                     }
+                    prevPoint = curPoint;
+                    continue;
                 }
                 else
                 {
 
 
-                    var m = curPoint.X == prevPoint.X ? 0 : (prevPoint.Y - curPoint.Y) / (prevPoint.X - curPoint.X);
+                    var m = (prevPoint.Y - curPoint.Y) / (prevPoint.X - curPoint.X);
                     var c = prevPoint.Y - prevPoint.X * m;
 
 
@@ -56,15 +60,23 @@ namespace DotneCourses
                     int maxX = curPoint.X;
                     if (prevPoint.X > curPoint.X)
                     {
-                        step = -1;
+                        for (int x = minX; x > maxX; --x)
+                        {
+                            var y = (m * x) + c;
+                            if (map[y, x] == Task1Consts.BridgeSymbol)
+                                continue;
+                            map[y, x] = Task1Consts.WaterSymbol;
+                        }
                     }
-
-                    for (int x = minX; x < maxX; x += step)
+                    else
                     {
-                        var y = (m * x) + c;
-                        if (map[y, x] == Task1Consts.BridgeSymbol)
-                            continue;
-                        map[y, x] = Task1Consts.WaterSymbol;
+                        for (int x = minX; x < maxX; x += step)
+                        {
+                            var y = (m * x) + c;
+                            if (map[y, x] == Task1Consts.BridgeSymbol)
+                                continue;
+                            map[y, x] = Task1Consts.WaterSymbol;
+                        }
                     }
                     prevPoint = curPoint;
                 }
