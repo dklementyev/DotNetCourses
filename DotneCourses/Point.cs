@@ -21,5 +21,21 @@ namespace DotneCourses
             X = Convert.ToInt16(x);
             Y = Convert.ToInt16(y);
         }
+        public static bool operator ==(Point leftPoint, Point rightPoint)
+        {
+            return leftPoint.X == rightPoint.X && leftPoint.Y == rightPoint.Y;
+        }
+        public static bool operator !=(Point leftPoint, Point rightPoint)
+        {
+            return leftPoint.X != rightPoint.X && leftPoint.Y != rightPoint.Y;
+        }
+        public static bool operator >(Point leftPoint, Point rightPoint)
+        {
+            return leftPoint.X > rightPoint.X && leftPoint.Y > rightPoint.Y;
+        }
+        public static bool operator <(Point leftPoint, Point rightPoint)
+        {
+            return leftPoint.X < rightPoint.X && leftPoint.Y < rightPoint.Y;
+        }
     }
 }

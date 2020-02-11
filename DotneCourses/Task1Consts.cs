@@ -34,6 +34,7 @@ namespace DotneCourses
 
         public const string EmptySymbol = ".";
 
+        public const string PathSymbol = "%";
         #endregion
 
         #region MapLimits

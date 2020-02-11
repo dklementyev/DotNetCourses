@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AStarClasses\Node.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="Bridge.cs" />
     <Compile Include="FileHelper.cs" />

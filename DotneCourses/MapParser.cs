@@ -10,6 +10,7 @@ namespace DotneCourses
         private readonly string[] _lines;
         public int xMax;
         public int yMax;
+        public List<IMapElement> elements;
         public MapParser(string [] inputLines)
         {
             _lines = inputLines;
@@ -18,7 +19,7 @@ namespace DotneCourses
         public string[,] Parse()
         {
 
-            var elements = new List<IMapElement>();
+            elements = new List<IMapElement>();
 
             foreach (var line in _lines)
             {
@@ -84,5 +85,7 @@ namespace DotneCourses
 
             return map;
         }
+
+
     }
 }
