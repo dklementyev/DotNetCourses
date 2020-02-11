@@ -8,20 +8,21 @@ namespace DotneCourses
 {
     public class Treasure : IMapElement
     {
-
-        public int XPoint;
-        public int YPoint;
-
+        public Point[] points;
 
         public void Parse(string line)
         {
-            XPoint = Convert.ToInt16(line.Split(',')[0]);
-            YPoint = Convert.ToInt16(line.Split(',')[1]);
+            var parts = line.Split(',');
+            points = new Point[] { new Point(parts[0], parts[1]) };
+        }
+        public Point[] GetPoints()
+        {
+            return points;
         }
 
         public string[,] FillMap(string[,] map)
         {
-            map[YPoint, XPoint] = Task1Consts.TreasureSymbol;
+            map[points[0].Y, points[0].X] = Task1Consts.TreasureSymbol;
             return map;
         }
 

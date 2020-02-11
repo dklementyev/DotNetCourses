@@ -13,16 +13,16 @@ namespace DotneCourses
         {
             // for (int i = 0; i < 11; ++i)
             //{
-            var path = Path.Combine(System.Environment.CurrentDirectory, "TestData", $"Map2.txt");
+            var path = Path.Combine(System.Environment.CurrentDirectory, "TestData", $"HardMap.txt");
             var fileHelper = new FileHelper(path);
 
             var mapHelper = new MapParser(fileHelper.LinesFromFile);
 
             var map = mapHelper.Parse();
             //}
-            Console.Clear();
+            Console.WriteLine();
             Console.Write(" ");
-            for (int i = 0; i < Task1Consts.XLimit/10; i++)
+            for (int i = 0; i < mapHelper.xMax / 10; i++)
             {
                 for (int j = 0; j < 10; j++)
                 {
@@ -32,7 +32,7 @@ namespace DotneCourses
             Console.Write(0);
             Console.WriteLine();
             int k = 0;
-            for (int i = 0; i < Task1Consts.YLimit; i++)
+            for (int i = 0; i < mapHelper.yMax; i++)
             {
                 
 
@@ -42,7 +42,7 @@ namespace DotneCourses
                 {
                     k = 0;
                 }
-                for (int j = 0; j < Task1Consts.XLimit; j++)
+                for (int j = 0; j < mapHelper.xMax; j++)
                 {
                     Console.Write(map[i, j]);
 

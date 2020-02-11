@@ -17,7 +17,7 @@ namespace DotneCourses
 
         private void PreprocessLines(string[] lines)
         {
-            var linesAfterProcessing = lines.Select(x => x.ToLower().Trim().Replace(" ", string.Empty)).ToArray();
+            var linesAfterProcessing = lines.Where(x=> !string.IsNullOrEmpty(x)).Select(x => x.ToLower().Trim().Replace(" ", string.Empty)).ToArray();
 
             Console.WriteLine(string.Join(System.Environment.NewLine, linesAfterProcessing));
             LinesFromFile = linesAfterProcessing;

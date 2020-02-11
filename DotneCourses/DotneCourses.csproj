@@ -48,6 +48,7 @@
     <Compile Include="FileHelper.cs" />
     <Compile Include="IMapElement.cs" />
     <Compile Include="MapParser.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Task1Consts.cs" />

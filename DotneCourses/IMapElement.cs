@@ -8,6 +8,7 @@ namespace DotneCourses
 {
     public interface IMapElement
     {
+        Point[] GetPoints();
         void Parse(string line);
         string[,] FillMap(string[,] map);
     }
