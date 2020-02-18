@@ -21,6 +21,10 @@ namespace DotneCourses
             X = Convert.ToInt16(x);
             Y = Convert.ToInt16(y);
         }
+        public bool IsOutOfRange(int xRange, int yRange)
+        {
+            return X < 0 || X >= xRange || Y < 0 || Y >= yRange;
+        }
         public static bool operator ==(Point leftPoint, Point rightPoint)
         {
             return leftPoint.X == rightPoint.X && leftPoint.Y == rightPoint.Y;

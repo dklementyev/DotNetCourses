@@ -28,9 +28,9 @@ namespace DotneCourses
 
         public string[,] FillMap(string [,] map)
         {
-            for (var i = points[0].Y- 1; i <= points[1].Y; i++)
+            for (var i = points[0].Y; i <= points[1].Y; i++)
             {
-                for (var j = points[0].X - 1; j <= points[1].X; j++)
+                for (var j = points[0].X; j <= points[1].X; j++)
                 {
                     map[i, j] = Task1Consts.BaseSymbol;
                 }

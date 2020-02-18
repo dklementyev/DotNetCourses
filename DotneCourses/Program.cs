@@ -14,7 +14,7 @@ namespace DotneCourses
         {
             // for (int i = 0; i < 11; ++i)
             //{
-            var path = Path.Combine(System.Environment.CurrentDirectory, "TestData", $"Map.txt");
+            var path = Path.Combine(System.Environment.CurrentDirectory, "TestData", $"Map1.txt");
             var fileHelper = new FileHelper(path);
 
             var mapHelper = new MapParser(fileHelper.LinesFromFile);
@@ -55,9 +55,13 @@ namespace DotneCourses
 
             var node = new Node();
             var bases = mapHelper.elements.Where(x => x.GetType().Equals(typeof(Base))).ToList()[0].GetPoints();
-            var treasure = mapHelper.elements.Where(x => x.GetType().Equals(typeof(Treasure))).ToList()[0];
+            var treasures = mapHelper.elements.Where(x => x.GetType().Equals(typeof(Treasure))).ToList();
+            foreach (var treasure in treasures)
+            {
+
+
             var minDistance = Node.GetHeuristicPathLength(bases[0], treasure.GetPoints()[0]);
-            Point start = null;
+            Point start = bases[0];
             foreach (var basee in bases)
             {
                 var pathLength = Node.GetHeuristicPathLength(basee, treasure.GetPoints()[0]);
@@ -71,11 +75,15 @@ namespace DotneCourses
             var pathPoints = Node.FindPath(map, start, end);
 
             Console.Read();
-            Console.Clear();
-
+            if (pathPoints == null)
+            {
+                Console.WriteLine("There is no path to Treasure. Sorry :(");
+                Console.Read();
+                continue;
+            }
             foreach (var point in pathPoints)
             {
-                map[point.Y, point.X] = Task1Consts.PathSymbol;
+                map[point.Y, point.X] = map[point.Y, point.X] == Task1Consts.EmptySymbol ? Task1Consts.PathSymbol : map[point.Y, point.X];
             }
             Console.WriteLine();
             Console.Write(" ");
@@ -108,6 +116,7 @@ namespace DotneCourses
             }
 
             Console.Read();
+            }
         }
     }
 }
