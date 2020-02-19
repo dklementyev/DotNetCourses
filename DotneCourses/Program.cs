@@ -14,7 +14,7 @@ namespace DotneCourses
         {
             // for (int i = 0; i < 11; ++i)
             //{
-            var path = Path.Combine(System.Environment.CurrentDirectory, "TestData", $"Map1.txt");
+            var path = Path.Combine(System.Environment.CurrentDirectory, "TestData", $"Map9.txt");
             var fileHelper = new FileHelper(path);
 
             var mapHelper = new MapParser(fileHelper.LinesFromFile);
@@ -54,68 +54,69 @@ namespace DotneCourses
             Console.Read();
 
             var node = new Node();
-            var bases = mapHelper.elements.Where(x => x.GetType().Equals(typeof(Base))).ToList()[0].GetPoints();
-            var treasures = mapHelper.elements.Where(x => x.GetType().Equals(typeof(Treasure))).ToList();
+
+            var bases = mapHelper.elements.Where(x => x.GetType() == typeof(Base)).ToList()[0].GetPoints();
+            var treasures = mapHelper.elements.Where(x => x.GetType() == typeof(Treasure)).ToList();
             foreach (var treasure in treasures)
             {
 
 
-            var minDistance = Node.GetHeuristicPathLength(bases[0], treasure.GetPoints()[0]);
-            Point start = bases[0];
-            foreach (var basee in bases)
-            {
-                var pathLength = Node.GetHeuristicPathLength(basee, treasure.GetPoints()[0]);
-                if (pathLength < minDistance)
+                var minDistance = Node.GetHeuristicPathLength(bases[0], treasure.GetPoints()[0]);
+                Point start = bases[0];
+                foreach (var basee in bases)
                 {
-                    minDistance = pathLength;
-                    start = basee;
+                    var pathLength = Node.GetHeuristicPathLength(basee, treasure.GetPoints()[0]);
+                    if (pathLength < minDistance)
+                    {
+                        minDistance = pathLength;
+                        start = basee;
+                    }
                 }
-            }
-            var end = treasure.GetPoints()[0];
-            var pathPoints = Node.FindPath(map, start, end);
+                var end = treasure.GetPoints()[0];
+                var pathPoints = Node.FindPath(map, start, end);
 
-            Console.Read();
-            if (pathPoints == null)
-            {
-                Console.WriteLine("There is no path to Treasure. Sorry :(");
                 Console.Read();
-                continue;
-            }
-            foreach (var point in pathPoints)
-            {
-                map[point.Y, point.X] = map[point.Y, point.X] == Task1Consts.EmptySymbol ? Task1Consts.PathSymbol : map[point.Y, point.X];
-            }
-            Console.WriteLine();
-            Console.Write(" ");
-            for (int i = 0; i < mapHelper.xMax / 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
+                if (pathPoints == null)
                 {
-                    Console.Write(j);
+                    Console.WriteLine("There is no path to Treasure. Sorry :(");
+                    Console.Read();
+                    continue;
                 }
-            }
-            Console.Write(0);
-            Console.WriteLine();
-            k = 0;
-            for (int i = 0; i < mapHelper.yMax; i++)
-            {
-
-
-                Console.Write(k);
-                k++;
-                if (k == 10)
+                foreach (var point in pathPoints)
                 {
-                    k = 0;
-                }
-                for (int j = 0; j < mapHelper.xMax; j++)
-                {
-                    Console.Write(map[i, j]);
-
+                    map[point.Y, point.X] = map[point.Y, point.X] == Task1Consts.EmptySymbol ? Task1Consts.PathSymbol : map[point.Y, point.X];
                 }
                 Console.WriteLine();
-            }
+                Console.Write(" ");
+                for (int i = 0; i < mapHelper.xMax / 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        Console.Write(j);
+                    }
+                }
+                Console.Write(0);
+                Console.WriteLine();
+                k = 0;
+                for (int i = 0; i < mapHelper.yMax; i++)
+                {
 
-            Console.Read();
+
+                    Console.Write(k);
+                    k++;
+                    if (k == 10)
+                    {
+                        k = 0;
+                    }
+                    for (int j = 0; j < mapHelper.xMax; j++)
+                    {
+                        Console.Write(map[i, j]);
+
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.Read();
             }
         }
     }

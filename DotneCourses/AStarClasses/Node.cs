@@ -65,7 +65,7 @@ namespace DotneCourses.AStarClasses
             return 1;
         }
         
-        private static Collection<Node> GetNeighbours(Node pathNode, Point goal, string[,] field)
+        private static Collection<Node> GetNeighbours(Node pathNode, Point goal, string[,] field, bool isWater)
         {
             var result = new Collection<Node>();
             var xRange = field.GetLength(1);
@@ -120,7 +120,7 @@ namespace DotneCourses.AStarClasses
                     continue;
                 var fieldSymbol = field[point.Y, point.X];
 
-                if (fieldSymbol == Task1Consts.WaterSymbol)
+                if (!isWater && fieldSymbol == Task1Consts.WaterSymbol)
                     continue;
                
                 var neighbourNode = new Node()
@@ -141,7 +141,7 @@ namespace DotneCourses.AStarClasses
             return Math.Abs(from.X - to.X) + Math.Abs(from.Y - to.Y);
         }
 
-        public static List<Point> FindPath(string[,] field, Point start, Point goal)
+        public static List<Point> FindPath(string[,] field, Point start, Point goal, bool isWater = false)
         {
             var closedSet = new Collection<Node>();
 
@@ -170,8 +170,8 @@ namespace DotneCourses.AStarClasses
                     openSet.Remove(node);
                 }
                 closedSet.Add(currentNode);
-
-                foreach (var neighbourNode in GetNeighbours(currentNode, goal, field))
+                var neighBours = GetNeighbours(currentNode, goal, field, isWater);
+                foreach (var neighbourNode in neighBours)
                 {
 
                     if (closedSet.Count(node => node.Position == neighbourNode.Position) > 0)

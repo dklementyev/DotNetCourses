@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DotneCourses.AStarClasses;
 
 namespace DotneCourses
 {
@@ -31,10 +32,37 @@ namespace DotneCourses
 
         public string[,] FillMap(string[,] map)
         {
+
+            
             var prevPoint = points[0];
+
+            for (var i = 1; i < points.Length; ++i)
+            {
+                if (points[i] == prevPoint)
+                {
+                    prevPoint = points[i];
+                    continue;
+                }
+
+                var path = Node.FindPath(map, prevPoint, points[i], true);
+                foreach (var p in path)
+                {
+                    if (map[p.Y, p.X] == Task1Consts.BridgeSymbol)
+                        continue;
+                    map[p.Y, p.X] = Task1Consts.WaterSymbol;
+                }
+
+                prevPoint = points[i];
+            }
+            /*
             for (int i = 1; i < points.Length; i++)
             {
                 var curPoint = points[i];
+                if (prevPoint == curPoint)
+                {
+                    prevPoint = curPoint;
+                    continue;
+                }
 
                 if (prevPoint.X == curPoint.X)
                 {
@@ -49,7 +77,7 @@ namespace DotneCourses
                 }
                 else
                 {
-                    var m = (prevPoint.Y - curPoint.Y) / (prevPoint.X - curPoint.X);
+                    var m = (double) (prevPoint.Y - curPoint.Y) / (prevPoint.X - curPoint.X);
                     var c = prevPoint.Y - prevPoint.X * m;
 
                     int step = 1;
@@ -59,7 +87,7 @@ namespace DotneCourses
                     {
                         for (int x = minX; x >= maxX; --x)
                         {
-                            var y = (m * x) + c;
+                            var y = (int) Math.Ceiling(m * x + c);
                             if (map[y, x] == Task1Consts.BridgeSymbol)
                                 continue;
                             map[y, x] = Task1Consts.WaterSymbol;
@@ -69,7 +97,7 @@ namespace DotneCourses
                     {
                         for (int x = minX; x <= maxX; x += step)
                         {
-                            var y = (m * x) + c;
+                            var y = (int) Math.Ceiling(m * x + c);
                             if (map[y, x] == Task1Consts.BridgeSymbol)
                                 continue;
                             map[y, x] = Task1Consts.WaterSymbol;
@@ -78,6 +106,7 @@ namespace DotneCourses
                     prevPoint = curPoint;
                 }
             }
+            */
             return map;
         }
 
